@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:tns="http://example.com/prese"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             targetNamespace="http://example.com/prese">
+
+  <types>
+    <xsd:schema targetNamespace="http://example.com/prese">
+      <xsd:element name="getCountryRequest" type="xsd:string"/>
+      <xsd:element name="getCountryResponse" type="xsd:string"/>
+    </xsd:schema>
+  </types>
+
+  <message name="getCountryRequest">
+    <part name="countryName" element="tns:getCountryRequest"/>
+  </message>
+
+  <message name="getCountryResponse">
+    <part name="countryInfo" element="tns:getCountryResponse"/>
+  </message>
+
+  <portType name="CountryServicePortType">
+    <operation name="getCountry">
+      <input message="tns:getCountryRequest"/>
+      <output message="tns:getCountryResponse"/>
+    </operation>
+  </portType>
+
+  <binding name="CountryServiceBinding" type="tns:CountryServicePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="getCountry">
+      <soap:operation soapAction="getCountry"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+
+  <service name="CountryService">
+    <port name="CountryServicePort" binding="tns:CountryServiceBinding">
+      <soap:address location="http://example.com/prese"/>
+    </port>
+  </service>
+
+</definitions>
